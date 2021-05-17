@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类的基本知识</title>
+</head>
+<body>
+<script type="text/javascript">
+  //创建一个Person类
+  class Person{
+    constructor(name,age) {
+      //构造器中的this是类的实例对象
+      this.name = name;
+      this.age = age;
+    }
+    //一帮方法
+    speak(){
+        console.log('我叫'+this.name+',我的年龄是'+this.age)
+    }
+  }
+  class Dog{
+
+  }
+  //创建一个Person的实例对象
+  const p1 = new Person("tom",18)
+  const p2 = new Person('jerry',19)
+  const d1 = new Dog
+
+  p1.speak();
+  p2.speak();
+
+  console.log(p1)
+  console.log(p2)
+  console.log(d1)
+</script>
+</body>
+</html>
