@@ -15,25 +15,28 @@
 <!--引入prop-types,用于对组件标签属性进行限制-->
 <script type="text/javascript" src="../js/prop-types.js"></script>
 <script type="text/babel">
-    class Count extends React.Component{
+    class Count extends React.Component {
         //构造器
-        constructor(props){
+        constructor(props) {
             console.log('Count---constructor')
             super();
-            this.state = {count:0}
+            this.state = {count: 0}
         }
+
         //组件将要挂载的狗子
-        componentWillMount(){
+        componentWillMount() {
             console.log('Count---componentWillMount')
         }
+
         //组件挂载完毕的狗子
-        componentDidMount(){
+        componentDidMount() {
             console.log('Count---componentDidMount')
         }
-        render(){
+
+        render() {
             console.log('Count---render')
             const {count} = this.state;
-            return(
+            return (
                 <div>
                     <h2>当前求和为{count}</h2>
                     <button onClick={this.add}>点我+1</button>
@@ -44,43 +47,80 @@
         }
 
         //组件将要卸载的钩子
-        componentWillUnmount(){
+        componentWillUnmount() {
             console.log('Count---componentWillUnmount')
         }
 
         //控制组件更新的阀门
-        shouldComponentUpdate(){
+        shouldComponentUpdate() {
             console.log('Count---shouldComponentUpdate')
             return true;
         }
+
         //组件将要更新的钩子
-        componentWillUpdate(){
+        componentWillUpdate() {
             console.log('Count---componentWillUpdate')
         }
 
         //组件更新完毕的狗子
-        componentDieUpdate(){
+        componentDieUpdate() {
             console.log('Count---componentDieUpdate')
         }
+
         //+1按钮回调
-        add=()=>{
+        add = () => {
             //获取原状态
             const {count} = this.state;
             //更新状态
-            this.setState({count:count+1})
+            this.setState({count: count + 1})
         }
 
-        death=()=>{
+        death = () => {
             ReactDOM.unmountComponentAtNode(document.getElementById('test'))
         }
 
-        force=()=>{
+        force = () => {
             this.forceUpdate();
         }
     }
 
+    class A extends React.Component {
+        state = {carName:'宝马'}
+        render() {
+            return (
+                <div>
+                    <div>A</div>
+                    <B carName={this.state.carName}/>
+                    <button onClick={this.changeCar}>换车</button>
+                </div>
+            )
+        }
+
+
+        changeCar = ()=>{
+            this.setState({carName:'奔驰'})
+        }
+    }
+
+    class B extends React.Component {
+        //组件将要接收props时调用
+        //第一次不算，只有以后才可以
+        componentWillReceiveProps(){
+            console.log('B----componentWillReceiveProps')
+        }
+        render() {
+            return (
+                <div>
+                    <div>B</div>
+                    <div>接收到的车是：{this.props.carName}</div>
+                </div>
+            )
+        }
+
+    }
+
     //渲染组件
-    ReactDOM.render(<Count/>,document.getElementById('test'))
+    ReactDOM.render(<A/>, document.getElementById('test'))
 
 </script>
 </body>
